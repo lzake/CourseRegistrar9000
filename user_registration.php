@@ -40,45 +40,44 @@
     </nav>
     <br>
     <?php
-    include 'db_connection.php';
-    $conn = OpenCon();
- 
-    if(isset($_POST['button_submit'])) {
-       $InputEmail = '';
-       $InputPhone = '';
-       $InputPassword1 = '';
-       $InputPassword2 = '';
-       $PasswordMatch = False;
-       $Password = '';
-       if (!empty($_POST['InputEmail'])){
-           $InputEmail = $_POST['InputEmail'];
-       }
-       if (!empty($_POST['InputPhone'])){
-           $InputPhone = $_POST['InputPhone'];
-       }
-       if (!empty($_POST['InputPassword1']) && !empty($_POST['InputPassword2'])){
-           $InputPassword1 = $_POST['InputPassword1'];
-           $InputPassword2 = $_POST['InputPassword2'];
-           if ($InputPassword1 === $InputPassword2){
-               $InputPassword1 = $_POST['InputPassword1'];
-               $Password = "{$InputPassword1}fakeSalting";
-               $PasswordMatch = True;
-           }
-       }
-       if ($PasswordMatch === True){
-           $sql = "INSERT INTO tbl_student (student_email, student_hashed_password, student_phone) VALUES ('{$InputEmail}', '{$Password}', '{$InputPhone}')";
-           echo $sql;
-           if ($conn->query($sql) === TRUE) {
-               echo "Student Account Created!";
-             } else {
-               echo "Error: " . $sql . "<br>" . $conn->error;
-             }
-       } else {
-           echo "PASSWORDS DONT MATCH";
-       }
-   }
-    ?>
-    <br>
+include 'db_connection.php';
+$conn = OpenCon();
+if (isset($_POST['button_submit'])) {
+    $InputEmail = '';
+    $InputPhone = '';
+    $InputPassword1 = '';
+    $InputPassword2 = '';
+    $PasswordMatch = False;
+    $Password = '';
+    if (!empty($_POST['InputEmail'])) {
+        $InputEmail = $_POST['InputEmail'];
+    }
+    if (!empty($_POST['InputPhone'])) {
+        $InputPhone = $_POST['InputPhone'];
+    }
+    if (!empty($_POST['InputPassword1']) && !empty($_POST['InputPassword2'])) {
+        $InputPassword1 = $_POST['InputPassword1'];
+        $InputPassword2 = $_POST['InputPassword2'];
+        if ($InputPassword1 === $InputPassword2) {
+            $InputPassword1 = $_POST['InputPassword1'];
+            $Password = "{$InputPassword1}fakeSalting";
+            $PasswordMatch = True;
+        }
+    }
+    if ($PasswordMatch === True) {
+        $sql = "INSERT INTO tbl_student (student_email, student_hashed_password, student_phone) VALUES ('{$InputEmail}', '{$Password}', '{$InputPhone}')";
+        echo $sql;
+        if ($conn->query($sql) === TRUE) {
+            echo "Student Account Created!";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    } else {
+        echo "PASSWORDS DONT MATCH";
+    }
+}
+?>
+   <br>
     <form method="post">
         <div class="container">
             <h3>This page will be used to register a new account using your provided school

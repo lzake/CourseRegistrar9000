@@ -8,12 +8,12 @@
 
 <body>
     <?php
-    // TEMPORARY LOGIN
-    $value = '1';
-    setcookie("student_id", $value);
-    setcookie("student_id", $value, time()+360000);  
-    setcookie("student_id", $value, time()+360000, "/~student_id/", "example.com", 1);
-    ?>
+// TEMPORARY LOGIN
+$value = '1';
+setcookie("student_id", $value);
+setcookie("student_id", $value, time() + 360000);
+setcookie("student_id", $value, time() + 360000, "/~student_id/", "example.com", 1);
+?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">CourseRegistrar9000</a>
@@ -48,9 +48,9 @@
     <br>
     <br>
     <?php
-    include 'db_connection.php';
-    $conn = OpenCon();
-    ?>
+include 'db_connection.php';
+$conn = OpenCon();
+?>
 
     <form>
         <div class="container">
