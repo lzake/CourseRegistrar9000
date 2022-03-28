@@ -2,17 +2,14 @@
 
 <head>
     <title>User Registration - CourseRegistrar9000</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">CourseRegistrar9000</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -40,44 +37,44 @@
     </nav>
     <br>
     <?php
-include 'db_connection.php';
-$conn = OpenCon();
-if (isset($_POST['button_submit'])) {
-    $InputEmail = '';
-    $InputPhone = '';
-    $InputPassword1 = '';
-    $InputPassword2 = '';
-    $PasswordMatch = False;
-    $Password = '';
-    if (!empty($_POST['InputEmail'])) {
-        $InputEmail = $_POST['InputEmail'];
-    }
-    if (!empty($_POST['InputPhone'])) {
-        $InputPhone = $_POST['InputPhone'];
-    }
-    if (!empty($_POST['InputPassword1']) && !empty($_POST['InputPassword2'])) {
-        $InputPassword1 = $_POST['InputPassword1'];
-        $InputPassword2 = $_POST['InputPassword2'];
-        if ($InputPassword1 === $InputPassword2) {
+    include 'db_connection.php';
+    $conn = OpenCon();
+    if (isset($_POST['button_submit'])) {
+        $InputEmail = '';
+        $InputPhone = '';
+        $InputPassword1 = '';
+        $InputPassword2 = '';
+        $PasswordMatch = False;
+        $Password = '';
+        if (!empty($_POST['InputEmail'])) {
+            $InputEmail = $_POST['InputEmail'];
+        }
+        if (!empty($_POST['InputPhone'])) {
+            $InputPhone = $_POST['InputPhone'];
+        }
+        if (!empty($_POST['InputPassword1']) && !empty($_POST['InputPassword2'])) {
             $InputPassword1 = $_POST['InputPassword1'];
-            $Password = "{$InputPassword1}fakeSalting";
-            $PasswordMatch = True;
+            $InputPassword2 = $_POST['InputPassword2'];
+            if ($InputPassword1 === $InputPassword2) {
+                $InputPassword1 = $_POST['InputPassword1'];
+                $Password = "{$InputPassword1}fakeSalting";
+                $PasswordMatch = True;
+            }
         }
-    }
-    if ($PasswordMatch === True) {
-        $sql = "INSERT INTO tbl_student (student_email, student_hashed_password, student_phone) VALUES ('{$InputEmail}', '{$Password}', '{$InputPhone}')";
-        echo $sql;
-        if ($conn->query($sql) === TRUE) {
-            echo "Student Account Created!";
+        if ($PasswordMatch === True) {
+            $sql = "INSERT INTO tbl_student (student_email, student_hashed_password, student_phone) VALUES ('{$InputEmail}', '{$Password}', '{$InputPhone}')";
+            echo $sql;
+            if ($conn->query($sql) === TRUE) {
+                echo "Student Account Created!";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "PASSWORDS DONT MATCH";
         }
-    } else {
-        echo "PASSWORDS DONT MATCH";
     }
-}
-?>
-   <br>
+    ?>
+    <br>
     <form method="post">
         <div class="container">
             <h3>This page will be used to register a new account using your provided school
